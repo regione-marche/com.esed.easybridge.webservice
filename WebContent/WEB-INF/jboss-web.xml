@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+    <context-root>EasybridgeService</context-root>
+    <!-- inizio LP PG21Xx07 -->
+    <!--
+    	 <resource-ref>
+   		<res-ref-name>payerDataSource</res-ref-name>
+   		<res-type>javax.sql.DataSource</res-type>
+   		<jndi-name>java:/payerDataSource</jndi-name>
+    </resource-ref>
+    -->
+    <!-- fine LP PG21Xx07 -->
+</jboss-web>

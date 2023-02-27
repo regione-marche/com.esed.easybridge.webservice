@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="com.esed.easybridge.webservice" version="2.5" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd">
+	<display-name>com.esed.easybridge.webservice</display-name>
+	<servlet>
+		<display-name>Apache-Axis Servlet</display-name>
+		<servlet-name>AxisServlet</servlet-name>
+		<servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+	
+	 <servlet>
+		<description>Servlet per la gestione della redirect da parte del PSP</description>
+		<display-name>PspReceive</display-name>
+		<servlet-name>PspReceive</servlet-name>
+		<servlet-class>com.esed.easybridge.webservice.pspreceive.PspReceive</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>PspReceive</servlet-name>
+		<url-pattern>/pspreceive/*</url-pattern>
+	</servlet-mapping>
+	
+	<listener>
+		<listener-class>com.esed.easybridge.webservice.listener.ApplicationListener</listener-class>
+	</listener>
+
+</web-app>

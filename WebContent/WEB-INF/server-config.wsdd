@@ -1,0 +1,370 @@
+<ns1:deployment xmlns="http://xml.apache.org/axis/wsdd/"
+	xmlns:java="http://xml.apache.org/axis/wsdd/providers/java" xmlns:ns1="http://xml.apache.org/axis/wsdd/">
+	<ns1:globalConfiguration>
+		<ns1:parameter name="sendMultiRefs" value="true" />
+		<ns1:parameter name="disablePrettyXML" value="true" />
+		<ns1:parameter name="adminPassword" value="admin" />
+		<!--ns1:parameter name="attachments.Directory" value="temp"/-->
+		<ns1:parameter name="dotNetSoapEncFix" value="true" />
+		<ns1:parameter name="enableNamespacePrefixOptimization"
+			value="false" />
+		<ns1:parameter name="sendXMLDeclaration" value="true" />
+		<ns1:parameter name="sendXsiTypes" value="true" />
+		<ns1:parameter name="attachments.implementation"
+			value="org.apache.axis.attachments.AttachmentsImpl" />
+		<ns1:requestFlow>
+			<ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+				<ns1:parameter name="scope" value="session" />
+			</ns1:handler>
+			<ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
+				<ns1:parameter name="scope" value="request" />
+				<ns1:parameter name="extension" value=".jwr" />
+			</ns1:handler>
+		</ns1:requestFlow>
+	</ns1:globalConfiguration>
+	<ns1:handler name="LocalResponder"
+		type="java:org.apache.axis.transport.local.LocalResponder" />
+	<ns1:handler name="URLMapper"
+		type="java:org.apache.axis.handlers.http.URLMapper" />
+	<ns1:handler name="Authenticate"
+		type="java:org.apache.axis.handlers.SimpleAuthenticationHandler" />
+ 
+	<!-- Services from easybridge WSDL service -->
+<service name="EasybridgePort" provider="java:RPC" style="document" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://source.webservice.easybridge.esed.com"/>
+      <parameter name="wsdlServiceElement" value="easybridge"/>
+      <parameter name="schemaQualified" value="http://dati.webservice.easybridge.esed.com,http://srv.webservice.easybridge.esed.com"/>
+      <parameter name="schemaUnqualified" value="http://source.webservice.easybridge.esed.com"/>
+      <parameter name="wsdlServicePort" value="EasybridgePort"/>
+      <parameter name="className" value="com.esed.easybridge.webservice.source.EasybridgeSOAPBindingImpl"/>
+      <parameter name="wsdlPortType" value="EasybridgeInterface"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="inviaCarrelloRTP" qname="InviaCarrelloRTP" returnQName="retNS:InviaCarrelloRTPResponse" xmlns:retNS="http://dati.webservice.easybridge.esed.com" returnType="rtns:InviaCarrelloRTPResponse" xmlns:rtns="http://dati.webservice.easybridge.esed.com" soapAction="" >
+        <parameter qname="pns:InviaCarrelloRTPRequest" xmlns:pns="http://dati.webservice.easybridge.esed.com" type="tns:>InviaCarrelloRTPRequest" xmlns:tns="http://dati.webservice.easybridge.esed.com"/>
+        <fault name="EasybridgeFaultException" qname="fns:Fault" xmlns:fns="http://srv.webservice.easybridge.esed.com" class="com.esed.easybridge.webservice.srv.FaultType" type="tns:FaultType" xmlns:tns="http://srv.webservice.easybridge.esed.com"/>
+      </operation>
+      <parameter name="allowedMethods" value="inviaCarrelloRTP"/>
+
+      <arrayMapping
+        xmlns:ns="http://dati.webservice.easybridge.esed.com"
+        qname="ns:listaErroriRPT"
+        type="java:com.esed.easybridge.webservice.dati.FaultBean[]"
+        innerType="cmp-ns:faultBean" xmlns:cmp-ns="http://dati.webservice.easybridge.esed.com"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://dati.webservice.easybridge.esed.com"
+        qname="ns:faultBean"
+        type="java:com.esed.easybridge.webservice.dati.FaultBean"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://srv.webservice.easybridge.esed.com"
+        qname="ns:FaultType"
+        type="java:com.esed.easybridge.webservice.srv.FaultType"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://dati.webservice.easybridge.esed.com"
+        qname="ns:>InviaCarrelloRTPRequest"
+        type="java:com.esed.easybridge.webservice.dati.InviaCarrelloRTPRequest"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://dati.webservice.easybridge.esed.com"
+        qname="ns:risposta"
+        type="java:com.esed.easybridge.webservice.dati.Risposta"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://dati.webservice.easybridge.esed.com"
+        qname="ns:InviaCarrelloRTPResponse"
+        type="java:com.esed.easybridge.webservice.dati.InviaCarrelloRTPResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+
+  <!--  inizio LP PG1900XX_001  uso EasyBridge --> 
+  <!-- Services from EsedFacetService WSDL service -->
+  <service name="EsedServicesPort" provider="java:RPC" style="document" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://operazioni.webservice.easybridge.esed.com"/>
+      <parameter name="wsdlServiceElement" value="EsedFacetService"/>
+      <parameter name="schemaUnqualified" value="http://operazioni.webservice.easybridge.esed.com/head,http://operazioni.webservice.easybridge.esed.com"/>
+      <parameter name="wsdlServicePort" value="EsedServicesPort"/>
+      <parameter name="className" value="com.esed.easybridge.webservice.operazioni.EsedServicesBindingImpl"/>
+      <parameter name="wsdlPortType" value="EsedServicesEndpoint"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="nodoInviaRPT" qname="nodoInviaRPT" returnQName="retNS:nodoInviaRPTRisposta" xmlns:retNS="http://operazioni.webservice.easybridge.esed.com" returnType="rtns:nodoInviaRPTRisposta" xmlns:rtns="http://operazioni.webservice.easybridge.esed.com" soapAction="" >
+        <parameter qname="pns:nodoInviaRPT" xmlns:pns="http://operazioni.webservice.easybridge.esed.com" type="tns:nodoInviaRPT" xmlns:tns="http://operazioni.webservice.easybridge.esed.com"/>
+        <parameter qname="pns:intestazionePPT" xmlns:pns="http://operazioni.webservice.easybridge.esed.com/head" type="tns:intestazionePPT" xmlns:tns="http://operazioni.webservice.easybridge.esed.com/head" inHeader="true"/>
+      </operation>
+      <operation name="nodoChiediStatoRPT" qname="nodoChiediStatoRPT" returnQName="retNS:nodoChiediStatoRPTRisposta" xmlns:retNS="http://operazioni.webservice.easybridge.esed.com" returnType="rtns:nodoChiediStatoRPTRisposta" xmlns:rtns="http://operazioni.webservice.easybridge.esed.com" soapAction="" >
+        <parameter qname="pns:nodoChiediStatoRPT" xmlns:pns="http://operazioni.webservice.easybridge.esed.com" type="tns:nodoChiediStatoRPT" xmlns:tns="http://operazioni.webservice.easybridge.esed.com"/>
+        <parameter qname="pns:parametroCuteCute" xmlns:pns="http://operazioni.webservice.easybridge.esed.com/head" type="tns:parametroCuteCute" xmlns:tns="http://operazioni.webservice.easybridge.esed.com/head" inHeader="true"/>
+      </operation>
+      <operation name="nodoChiediCopiaRT" qname="nodoChiediCopiaRT" returnQName="retNS:nodoChiediCopiaRTRisposta" xmlns:retNS="http://operazioni.webservice.easybridge.esed.com" returnType="rtns:nodoChiediCopiaRTRisposta" xmlns:rtns="http://operazioni.webservice.easybridge.esed.com" soapAction="" >
+        <parameter qname="pns:nodoChiediCopiaRT" xmlns:pns="http://operazioni.webservice.easybridge.esed.com" type="tns:nodoChiediCopiaRT" xmlns:tns="http://operazioni.webservice.easybridge.esed.com"/>
+        <parameter qname="pns:parametroCuteCute" xmlns:pns="http://operazioni.webservice.easybridge.esed.com/head" type="tns:parametroCuteCute" xmlns:tns="http://operazioni.webservice.easybridge.esed.com/head" inHeader="true"/>
+      </operation>
+      <operation name="nodoInviaRispostaRevoca" qname="nodoInviaRispostaRevoca" returnQName="retNS:nodoInviaRispostaRevocaRisposta" xmlns:retNS="http://operazioni.webservice.easybridge.esed.com" returnType="rtns:nodoInviaRispostaRevocaRisposta" xmlns:rtns="http://operazioni.webservice.easybridge.esed.com" soapAction="" >
+        <parameter qname="pns:nodoInviaRispostaRevoca" xmlns:pns="http://operazioni.webservice.easybridge.esed.com" type="tns:nodoInviaRispostaRevoca" xmlns:tns="http://operazioni.webservice.easybridge.esed.com"/>
+        <parameter qname="pns:parametroCuteCute" xmlns:pns="http://operazioni.webservice.easybridge.esed.com/head" type="tns:parametroCuteCute" xmlns:tns="http://operazioni.webservice.easybridge.esed.com/head" inHeader="true"/>
+      </operation>
+      <!--  inizio LP PG21XX07 -->
+      <!--  parameter name="allowedMethods" value="nodoInviaRPT nodoInviaRispostaRevoca nodoChiediCopiaRT nodoChiediStatoRPT" / -->
+      <operation name="nodoChiediListaPendentiRPT" qname="nodoChiediListaPendentiRPT" returnQName="retNS:nodoChiediListaPendentiRPTRisposta" xmlns:retNS="http://operazioni.webservice.easybridge.esed.com" returnType="rtns:nodoChiediListaPendentiRPTRisposta" xmlns:rtns="http://operazioni.webservice.easybridge.esed.com" soapAction="" >
+        <parameter qname="pns:nodoChiediListaPendentiRPT" xmlns:pns="http://operazioni.webservice.easybridge.esed.com" type="tns:nodoChiediListaPendentiRPT" xmlns:tns="http://operazioni.webservice.easybridge.esed.com"/>
+        <parameter qname="pns:parametroCuteCute" xmlns:pns="http://operazioni.webservice.easybridge.esed.com/head" type="tns:parametroCuteCute" xmlns:tns="http://operazioni.webservice.easybridge.esed.com/head" inHeader="true"/>
+      </operation>
+      <operation name="nodoPAChiediInformativaPA" qname="nodoPAChiediInformativaPA" returnQName="retNS:nodoPAChiediInformativaPARisposta" xmlns:retNS="http://operazioni.webservice.easybridge.esed.com" returnType="rtns:nodoPAChiediInformativaPARisposta" xmlns:rtns="http://operazioni.webservice.easybridge.esed.com" soapAction="" >
+        <parameter qname="pns:nodoPAChiediInformativaPA" xmlns:pns="http://operazioni.webservice.easybridge.esed.com" type="tns:nodoPAChiediInformativaPA" xmlns:tns="http://operazioni.webservice.easybridge.esed.com"/>
+        <parameter qname="pns:parametroCuteCute" xmlns:pns="http://operazioni.webservice.easybridge.esed.com/head" type="tns:parametroCuteCute" xmlns:tns="http://operazioni.webservice.easybridge.esed.com/head" inHeader="true"/>
+      </operation>
+      <parameter name="allowedMethods" value="nodoPAChiediInformativaPA nodoInviaRPT nodoChiediListaPendentiRPT nodoInviaRispostaRevoca nodoChiediCopiaRT nodoChiediStatoRPT"/>
+      
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:nodoPAChiediInformativaPARisposta"
+        type="java:com.esed.easybridge.webservice.operazioni.NodoPAChiediInformativaPARisposta"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <!--  fine LP PG21XX07 -->
+      
+
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com/head"
+        qname="ns:stText5"
+        type="java:java.lang.String"
+        serializer="org.apache.axis.encoding.ser.SimpleSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.SimpleDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:nodoInviaRispostaRevoca"
+        type="java:com.esed.easybridge.webservice.operazioni.NodoInviaRispostaRevoca"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:nodoChiediCopiaRT"
+        type="java:com.esed.easybridge.webservice.operazioni.NodoChiediCopiaRT"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <!--  inizio LP PG21XX07 -->
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:nodoChiediListaPendentiRPTRisposta"
+        type="java:com.esed.easybridge.webservice.operazioni.NodoChiediListaPendentiRPTRisposta"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:nodoPAChiediInformativaPA"
+        type="java:com.esed.easybridge.webservice.operazioni.NodoPAChiediInformativaPA"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:tipoRPTPendente"
+        type="java:com.esed.easybridge.webservice.operazioni.TipoRPTPendente"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <!--  fine LP PG21XX07 -->
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:nodoInviaRPT"
+        type="java:com.esed.easybridge.webservice.operazioni.NodoInviaRPT"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:nodoInviaRPTRisposta"
+        type="java:com.esed.easybridge.webservice.operazioni.NodoInviaRPTRisposta"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com/head"
+        qname="ns:stText35"
+        type="java:java.lang.String"
+        serializer="org.apache.axis.encoding.ser.SimpleSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.SimpleDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:stPassword"
+        type="java:java.lang.String"
+        serializer="org.apache.axis.encoding.ser.SimpleSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.SimpleDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:tipoStoricoVersamento"
+        type="java:com.esed.easybridge.webservice.operazioni.TipoStoricoVersamento"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:stText35"
+        type="java:java.lang.String"
+        serializer="org.apache.axis.encoding.ser.SimpleSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.SimpleDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:nodoInviaRispostaRevocaRisposta"
+        type="java:com.esed.easybridge.webservice.operazioni.NodoInviaRispostaRevocaRisposta"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:nodoChiediCopiaRTRisposta"
+        type="java:com.esed.easybridge.webservice.operazioni.NodoChiediCopiaRTRisposta"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:esitoChiediStatoRPT"
+        type="java:com.esed.easybridge.webservice.operazioni.EsitoChiediStatoRPT"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com/head"
+        qname="ns:intestazionePPT"
+        type="java:com.esed.easybridge.webservice.operazioni.head.IntestazionePPT"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:nodoChiediStatoRPT"
+        type="java:com.esed.easybridge.webservice.operazioni.NodoChiediStatoRPT"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:risposta"
+        type="java:com.esed.easybridge.webservice.operazioni.Risposta"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:tipoStoricoRPT"
+        type="java:com.esed.easybridge.webservice.operazioni.TipoStoricoRPT"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <!--  inizio LP PG21XX07 -->
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:nodoChiediListaPendentiRPT"
+        type="java:com.esed.easybridge.webservice.operazioni.NodoChiediListaPendentiRPT"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <!--  fine LP PG21XX07 -->
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:nodoChiediStatoRPTRisposta"
+        type="java:com.esed.easybridge.webservice.operazioni.NodoChiediStatoRPTRisposta"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:faultBean"
+        type="java:com.esed.easybridge.webservice.operazioni.FaultBean"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <!--  inizio LP PG21XX07 -->
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com"
+        qname="ns:tipoListaRPTPendenti"
+        type="java:com.esed.easybridge.webservice.operazioni.TipoListaRPTPendenti"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <!--  fine LP PG21XX07 -->
+      <typeMapping
+        xmlns:ns="http://operazioni.webservice.easybridge.esed.com/head"
+        qname="ns:parametroCuteCute"
+        type="java:com.esed.easybridge.webservice.operazioni.head.ParametroCuteCute"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+  <!--  fine LP PG1900XX_001 uso EasyBridge--> 
+ 	
+	<ns1:transport name="http">
+		<ns1:requestFlow>
+			<ns1:handler type="URLMapper" />
+			<ns1:handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler" />
+		</ns1:requestFlow>
+		<ns1:parameter name="qs:list"
+			value="org.apache.axis.transport.http.QSListHandler" />
+		<ns1:parameter name="qs:wsdl"
+			value="org.apache.axis.transport.http.QSWSDLHandler" />
+		<ns1:parameter name="qs.list"
+			value="org.apache.axis.transport.http.QSListHandler" />
+		<ns1:parameter name="qs.method"
+			value="org.apache.axis.transport.http.QSMethodHandler" />
+		<ns1:parameter name="qs:method"
+			value="org.apache.axis.transport.http.QSMethodHandler" />
+		<ns1:parameter name="qs.wsdl"
+			value="org.apache.axis.transport.http.QSWSDLHandler" />
+	</ns1:transport>
+	<ns1:transport name="local">
+		<ns1:responseFlow>
+			<ns1:handler type="LocalResponder" />
+		</ns1:responseFlow>
+	</ns1:transport>
+</ns1:deployment>

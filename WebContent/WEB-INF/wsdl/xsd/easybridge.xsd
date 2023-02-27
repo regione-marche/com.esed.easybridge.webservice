@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:tns="http://dati.webservice.easybridge.esed.com"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0"
+	targetNamespace="http://dati.webservice.easybridge.esed.com"
+	elementFormDefault="qualified">
+	
+	
+	<xs:element name="InviaCarrelloRTPRequest" >
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="xmlCarrelloRTP" type="xs:string" minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="InviaCarrelloRTPResponse" type="tns:InviaCarrelloRTPResponse" />
+
+
+	<xs:complexType name="risposta">
+		<xs:sequence>
+			<xs:element name="fault" type="tns:faultBean" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="faultBean">
+		<xs:sequence>
+			<xs:element name="faultCode" type="xs:string" />
+			<xs:element name="faultString" type="xs:string" />
+			<xs:element name="id" type="xs:string" />
+			<xs:element name="description" type="xs:string" minOccurs="0" />
+			<xs:element name="serial" type="xs:int" minOccurs="0" />
+			<xs:element name="originalFaultCode" type="xs:string"  minOccurs="0"  />
+			<xs:element name="originalFaultString" type="xs:string"  minOccurs="0"  />
+			<xs:element name="originalDescription" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>	
+
+	<xs:complexType name="InviaCarrelloRTPResponse">
+		<xs:complexContent>
+			<xs:extension base="tns:risposta">
+				<xs:sequence>
+					<xs:element name="esitoComplessivoOperazione" type="xs:string" />
+					<xs:element name="url" type="xs:string" default="" minOccurs="0" />
+					<xs:element name="listaErroriRPT" type="tns:listaErroriRPT" minOccurs="0" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:complexType name="listaErroriRPT">
+		<xs:sequence>
+			<xs:element name="fault" type="tns:faultBean" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>		
+	
+</xs:schema>

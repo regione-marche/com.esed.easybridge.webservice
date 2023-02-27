@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:tns="http://source.webservice.easybridge.esed.com" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://source.webservice.easybridge.esed.com"
+	xmlns:sd="http://dati.webservice.easybridge.esed.com"
+	xmlns:srv="http://srv.webservice.easybridge.esed.com" 	name="easybridge" >
+	
+  	
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://source.webservice.easybridge.esed.com" >
+			<xsd:import namespace="http://dati.webservice.easybridge.esed.com" schemaLocation="xsd/easybridge.xsd"/>
+			<xsd:import namespace="http://srv.webservice.easybridge.esed.com" schemaLocation="xsd/srv.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	
+  <wsdl:message name="InviaCarrelloRTPRequest">
+    <wsdl:part element="sd:InviaCarrelloRTPRequest" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="InviaCarrelloRTPResponse">
+    <wsdl:part element="sd:InviaCarrelloRTPResponse" name="bodyresponse"/>
+  </wsdl:message> 
+	<wsdl:message name="Fault">
+	<wsdl:part name="fault" element="srv:Fault"></wsdl:part>
+</wsdl:message> 
+  
+  <wsdl:portType name="EasybridgeInterface">
+    <wsdl:operation name="InviaCarrelloRTP">
+      <wsdl:input message="tns:InviaCarrelloRTPRequest"/>
+      <wsdl:output message="tns:InviaCarrelloRTPResponse"/>
+      <wsdl:fault name="EasybridgeFaultException" message="tns:Fault"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  
+  
+  <wsdl:binding name="EasybridgeSOAPBinding" type="tns:EasybridgeInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="InviaCarrelloRTP">
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EasybridgeFaultException">
+		<soap:fault name="EasybridgeFaultException" use="literal" />
+	  </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  
+  <wsdl:service name="easybridge">
+    <wsdl:port binding="tns:EasybridgeSOAPBinding" name="EasybridgePort">
+      <soap:address location="http://localhost:9862/EasybridgeService/EasybridgePort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

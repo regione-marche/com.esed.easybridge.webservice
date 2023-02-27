@@ -1,0 +1,284 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.esed.easybridge.webservice</groupId>
+	<artifactId>com.esed.easybridge.webservice</artifactId>
+	<version>1.0</version>
+	<packaging>war</packaging>
+	<name>com.esed.easybridge.webservice</name>
+	<description>com.esed.easybridge.webservice</description>
+
+   <parent>
+      <groupId>it.maggioli.informatica.base.pom</groupId>
+      <artifactId>pagonet-base</artifactId>
+      <version>1.1</version>
+      <relativePath/>
+   </parent>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<resources>
+			<resource>
+				<directory>src</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.1</version>
+				<configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+					<archive>
+				<manifestEntries>
+					<Logging-Profile>com.esed.easybridge.webservice</Logging-Profile>
+					
+				</manifestEntries>
+			</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+<dependencies>
+	
+		<dependency>
+
+			<groupId>activation</groupId>
+
+			<artifactId>activation</artifactId>
+
+			<version>1.0</version>
+
+			<scope>system</scope>
+
+			<systemPath>${basedir}/lib/activation.jar</systemPath>
+
+			
+		</dependency>
+
+
+		<dependency>
+
+			<groupId>saaj</groupId>
+
+			<artifactId>saaj</artifactId>
+
+			<version>1.2</version>
+
+			<scope>system</scope>
+
+			<systemPath>${basedir}/lib/saaj.jar</systemPath>
+
+		</dependency>
+
+	
+		<dependency>
+
+			<groupId>commons-ssl</groupId>
+
+			<artifactId>commons-ssl</artifactId>
+
+			<version>1.0</version>
+
+			<scope>system</scope>
+
+			<systemPath>${basedir}/lib/commons-ssl.jar</systemPath>
+
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.8</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+			<scope>compile</scope>
+		</dependency>	
+
+		<dependency>
+		    <groupId>commons-logging</groupId>
+		    <artifactId>commons-logging</artifactId>
+		    <version>1.2</version>
+		    <scope>compile</scope>
+		</dependency>
+	
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging-api</artifactId>
+			<version>1.1</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>commons-net</groupId>
+		    <artifactId>commons-net</artifactId>
+		    <version>3.1</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.12</version>
+			<scope>compile</scope>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.apache.axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/axis/axis-ant -->
+		<dependency>
+		    <groupId>axis</groupId>
+		    <artifactId>axis-ant</artifactId>
+		    <version>1.4</version>
+		    <scope>compile</scope>
+		</dependency>
+	
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.seda.commons</groupId>
+			<artifactId>com.seda.commons</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.seda.compatibility</groupId>
+			<artifactId>com.seda.compatibility</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+	
+<!-- Librerie per Axis 1.4 -->
+		
+		<dependency>
+		    <groupId>commons-discovery</groupId>
+		    <artifactId>commons-discovery</artifactId>
+		    <version>0.5</version>
+		    <scope>compile</scope>
+		</dependency>
+		<dependency>
+		    <groupId>wsdl4j</groupId>
+		    <artifactId>wsdl4j</artifactId>
+		    <version>1.6.2</version>
+		    <scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.xml.rpc</groupId>
+			<artifactId>javax.xml.rpc-api</artifactId>
+			<version>1.1</version>
+			<scope>compile</scope>
+		</dependency>
+<!-- Librerie per Axis 1.4 -->
+
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+		
+	
+		<dependency>
+			<groupId>javax.xml</groupId>
+			<artifactId>jaxrpc-api</artifactId>
+			<version>1.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		
+
+	
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+			<scope>compile</scope>
+		</dependency>
+
+	
+		
+
+		<dependency>
+			<groupId>com.seda.j2ee5</groupId>
+			<artifactId>com.seda.j2ee5</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+		  <groupId>com.seda.data</groupId>
+		  <artifactId>com.seda.data</artifactId>
+		  <version>1.0</version>
+		  <scope>compile</scope>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>com.seda.payer.commons</groupId>
+			<artifactId>com.seda.payer.commons</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.esed.nodospc.wisp2.webservice.client</groupId>
+			<artifactId>com.esed.nodospc.wisp2.webservice.client</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.esed.easybridge.webservice.client</groupId>
+			<artifactId>com.esed.easybridge.webservice.client</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.esed.easybridge.core</groupId>
+			<artifactId>com.esed.easybridge.core</artifactId>
+			<version>1.0</version>
+			<scope>compile</scope>
+		</dependency>
+		
+	
+
+	</dependencies>
+
+
+
+	
+</project>

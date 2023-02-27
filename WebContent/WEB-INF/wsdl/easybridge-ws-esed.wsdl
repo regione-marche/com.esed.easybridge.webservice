@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+				  xmlns:oper="http://operazioni.webservice.easybridge.esed.com" 
+				  xmlns:operhead="http://operazioni.webservice.easybridge.esed.com/head" 
+				  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+				  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" 
+				  targetNamespace="http://operazioni.webservice.easybridge.esed.com">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://operazioni.webservice.easybridge.esed.com/head">
+			<xs:element name="intestazionePPT" type="operhead:intestazionePPT"/>
+			<xs:element name="parametroCuteCute" type="operhead:parametroCuteCute"/>
+			<xs:simpleType name="stText5">
+				<xs:restriction base="xs:string">
+					<xs:minLength value="2" />
+					<xs:maxLength value="5" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="stText35">
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1" />
+					<xs:maxLength value="35" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:complexType name="intestazionePPT">
+				<xs:sequence>
+					<xs:element name="identificativoIntermediarioPA" type="operhead:stText35" />
+					<xs:element name="identificativoStazioneIntermediarioPA" type="operhead:stText35" />
+					<xs:element name="identificativoDominio" type="operhead:stText35" />
+					<xs:element name="identificativoUnivocoVersamento" type="operhead:stText35" />
+					<xs:element name="codiceContestoPagamento" type="operhead:stText35" />
+					<xs:element name="cutecute" type="operhead:stText5" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="parametroCuteCute">
+				<xs:sequence>
+					<xs:element name="cutecute" type="operhead:stText5" minOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema targetNamespace="http://operazioni.webservice.easybridge.esed.com">			<xs:element name="nodoInviaRPT" type="oper:nodoInviaRPT"/>
+			<xs:element name="nodoInviaRPTRisposta" type="oper:nodoInviaRPTRisposta"/>
+			
+			<xs:element name="nodoChiediCopiaRT" type="oper:nodoChiediCopiaRT"/>
+			<xs:element name="nodoChiediCopiaRTRisposta" type="oper:nodoChiediCopiaRTRisposta"/>
+			<xs:element name="nodoChiediStatoRPT" type="oper:nodoChiediStatoRPT"/>
+			<xs:element name="nodoChiediStatoRPTRisposta" type="oper:nodoChiediStatoRPTRisposta"/>
+
+			<xs:element name="nodoInviaRispostaRevoca" type="oper:nodoInviaRispostaRevoca"/>
+			<xs:element name="nodoInviaRispostaRevocaRisposta" type="oper:nodoInviaRispostaRevocaRisposta"/>
+
+			<!-- inizio LP PG21XX07 -->
+			<xs:element name="nodoChiediListaPendentiRPT" type="oper:nodoChiediListaPendentiRPT"/>
+			<xs:element name="nodoChiediListaPendentiRPTRisposta" type="oper:nodoChiediListaPendentiRPTRisposta"/>
+
+			<xs:element name="nodoPAChiediInformativaPA" type="oper:nodoPAChiediInformativaPA"/>
+			<xs:element name="nodoPAChiediInformativaPARisposta" type="oper:nodoPAChiediInformativaPARisposta"/>
+			<!-- inizio LP PG21XX07 -->
+
+			<xs:simpleType name="stText35">
+				<xs:restriction base="xs:string">
+					<xs:minLength value="1"/>
+					<xs:maxLength value="35"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="stPassword">
+				<xs:restriction base="xs:string">
+					<xs:minLength value="8"/>
+					<xs:maxLength value="15"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:complexType name="risposta">
+				<xs:sequence>
+					<xs:element name="fault" type="oper:faultBean" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="faultBean">
+				<xs:sequence>
+					<xs:element name="faultCode" type="xs:string" minOccurs="0"/>
+					<xs:element name="faultString" type="xs:string" minOccurs="0"/>
+					<xs:element name="id" type="xs:string" minOccurs="0"/>
+					<xs:element name="description" type="xs:string" minOccurs="0"/>
+					<xs:element name="serial" type="xs:int" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>	
+			<xs:complexType name="nodoInviaRPT">
+				<xs:sequence>
+					<xs:element name="password" type="oper:stPassword"/>
+					<xs:element name="identificativoPSP" type="oper:stText35"/>
+					<xs:element name="identificativoIntermediarioPSP" type="oper:stText35" minOccurs="0"/>
+					<xs:element name="identificativoCanale" type="oper:stText35" minOccurs="0"/>
+					<xs:element name="tipoFirma" type="xs:string"/>
+					<xs:element name="rpt" type="xs:base64Binary"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="nodoInviaRPTRisposta">
+				<xs:complexContent>
+					<xs:extension base="oper:risposta">
+						<xs:sequence>
+							<xs:element name="esito" type="xs:string" minOccurs="0"/>
+							<xs:element name="redirect" type="xs:int" default="0" minOccurs="0"/>
+							<xs:element name="url" type="xs:string" default="" minOccurs="0"/>
+						</xs:sequence>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+		
+			<xs:complexType name="nodoChiediStatoRPT">
+				<xs:sequence>
+					<xs:element name="identificativoIntermediarioPA" type="oper:stText35"/>
+					<xs:element name="identificativoStazioneIntermediarioPA" type="oper:stText35"/>
+					<xs:element name="password" type="oper:stPassword"/>
+					<xs:element name="identificativoDominio" type="oper:stText35"/>
+					<xs:element name="identificativoUnivocoVersamento" type="oper:stText35"/>
+					<xs:element name="codiceContestoPagamento" type="oper:stText35"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="nodoChiediStatoRPTRisposta">
+				<xs:complexContent>
+					<xs:extension base="oper:risposta">
+						<xs:sequence>
+							<xs:element name="esito" type="oper:esitoChiediStatoRPT" minOccurs="0"/>
+						</xs:sequence>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+	
+			<xs:complexType name="esitoChiediStatoRPT">
+				<xs:sequence>
+					<xs:element name="stato" type="xs:string"/>
+					<xs:element name="redirect" type="xs:int" default="0" minOccurs="0"/>
+					<xs:element name="url" type="xs:string" default="" minOccurs="0"/>
+					<xs:element name="elementoStoricoRPT" type="oper:tipoStoricoRPT" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="elementoStoricoVersamento" type="oper:tipoStoricoVersamento" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="tipoStoricoRPT">
+				<xs:sequence>
+					<xs:element name="data" type="xs:dateTime"/>
+					<xs:element name="stato" type="xs:string"/>
+					<xs:element name="descrizione" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="tipoStoricoVersamento">
+				<xs:sequence>
+					<xs:element name="progressivo" type="xs:int"/>
+					<xs:element name="data" type="xs:dateTime"/>
+					<xs:element name="stato" type="xs:string"/>
+					<xs:element name="descrizione" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+	
+			<xs:complexType name="nodoChiediCopiaRT">
+				<xs:sequence>
+					<xs:element name="identificativoIntermediarioPA" type="oper:stText35"/>
+					<xs:element name="identificativoStazioneIntermediarioPA" type="oper:stText35"/>
+					<xs:element name="password" type="oper:stPassword"/>
+					<xs:element name="identificativoDominio" type="oper:stText35"/>
+					<xs:element name="identificativoUnivocoVersamento" type="oper:stText35"/>
+					<xs:element name="codiceContestoPagamento" type="oper:stText35"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="nodoChiediCopiaRTRisposta">
+				<xs:complexContent>
+					<xs:extension base="oper:risposta">
+						<xs:sequence>
+							<xs:element name="tipoFirma" type="xs:string" minOccurs="0"/>
+							<xs:element name="rt" type="xs:base64Binary" minOccurs="0" xmime:expectedContentTypes="application/octet-stream" xmlns:xmime="http://www.w3.org/2005/05/xmlmime"/>
+						</xs:sequence>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+
+			<xs:complexType name="nodoInviaRispostaRevoca">
+				<xs:sequence>
+					<xs:element name="identificativoIntermediarioPA" type="oper:stText35"/>
+					<xs:element name="identificativoStazioneIntermediarioPA" type="oper:stText35"/>
+					<xs:element name="password" type="oper:stPassword"/>
+					<xs:element name="identificativoDominio" type="oper:stText35"/>
+					<xs:element name="identificativoUnivocoVersamento" type="oper:stText35"/>
+					<xs:element name="codiceContestoPagamento" type="oper:stText35"/>
+					<xs:element name="er" type="xs:base64Binary"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="nodoInviaRispostaRevocaRisposta">
+				<xs:complexContent>
+					<xs:extension base="oper:risposta">
+						<xs:sequence>
+							<xs:element name="esito" type="xs:string" minOccurs="0"/>
+						</xs:sequence>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+
+			<!-- inizio LP PG21XX07 -->
+			<xs:complexType name="nodoChiediListaPendentiRPT">
+				<xs:sequence>
+					<xs:element name="identificativoIntermediarioPA" type="oper:stText35" />
+					<xs:element name="identificativoStazioneIntermediarioPA" type="oper:stText35" />
+					<xs:element name="password" type="oper:stPassword" />
+					<xs:element name="identificativoDominio" type="oper:stText35" minOccurs="0" />
+					<xs:element name="rangeDa" type="xs:dateTime" minOccurs="0" />
+					<xs:element name="rangeA" type="xs:dateTime" minOccurs="0" />
+					<xs:element name="dimensioneLista" type="xs:positiveInteger" />
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="nodoChiediListaPendentiRPTRisposta">
+				<xs:complexContent>
+					<xs:extension base="oper:risposta">
+						<xs:sequence>
+							<xs:element name="listaRPTPendenti" type="oper:tipoListaRPTPendenti" minOccurs="0" />
+						</xs:sequence>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+
+			<xs:complexType name="tipoListaRPTPendenti">
+				<xs:sequence>
+					<xs:element name="totRestituiti" type="xs:int" />
+					<xs:element name="rptPendente" type="oper:tipoRPTPendente" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="tipoRPTPendente">
+				<xs:sequence>
+					<xs:element name="identificativoDominio" type="oper:stText35" />
+					<xs:element name="identificativoUnivocoVersamento" type="oper:stText35" />
+					<xs:element name="codiceContestoPagamento" type="oper:stText35" />
+					<xs:element name="stato" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="nodoPAChiediInformativaPA">
+				<xs:sequence>
+					<xs:element name="identificativoIntermediarioPA" type="oper:stText35" />
+					<xs:element name="identificativoStazioneIntermediarioPA" type="oper:stText35" />
+					<xs:element name="password" type="oper:stPassword" />
+					<xs:element name="identificativoDominio" type="oper:stText35" />
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="nodoPAChiediInformativaPARisposta">
+				<xs:complexContent>
+					<xs:extension base="oper:risposta">
+						<xs:sequence>
+							<xs:element name="xmlInformativa" type="xs:base64Binary" minOccurs="0" xmime:expectedContentTypes="application/octet-stream" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" />
+						</xs:sequence>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+			<!-- fine LP PG21XX07 -->
+			
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="nodoInviaRPT">
+		<wsdl:part name="bodyrichiesta" element="oper:nodoInviaRPT" />
+		<wsdl:part name="header" element="operhead:intestazionePPT" />
+	</wsdl:message>
+	<wsdl:message name="nodoInviaRPTRisposta">
+		<wsdl:part name="bodyrisposta" element="oper:nodoInviaRPTRisposta"/>
+	</wsdl:message>
+	
+	<wsdl:message name="nodoChiediStatoRPT">
+		<wsdl:part name="bodyrichiesta" element="oper:nodoChiediStatoRPT" />
+		<wsdl:part name="cutecute" element="operhead:parametroCuteCute" />
+	</wsdl:message>
+	<wsdl:message name="nodoChiediStatoRPTRisposta">
+		<wsdl:part name="bodyrisposta" element="oper:nodoChiediStatoRPTRisposta" />
+	</wsdl:message>
+	<wsdl:message name="nodoChiediCopiaRT">
+		<wsdl:part name="bodyrichiesta" element="oper:nodoChiediCopiaRT" />
+		<wsdl:part name="cutecute" element="operhead:parametroCuteCute" />
+	</wsdl:message>
+	<wsdl:message name="nodoChiediCopiaRTRisposta">
+		<wsdl:part name="bodyrisposta" element="oper:nodoChiediCopiaRTRisposta" />
+	</wsdl:message>
+
+	<wsdl:message name="nodoInviaRispostaRevoca">
+		<wsdl:part name="bodyrichiesta" element="oper:nodoInviaRispostaRevoca" />
+		<wsdl:part name="cutecute" element="operhead:parametroCuteCute" />
+	</wsdl:message>
+	<wsdl:message name="nodoInviaRispostaRevocaRisposta">
+		<wsdl:part name="bodyrisposta" element="oper:nodoInviaRispostaRevocaRisposta" />
+	</wsdl:message>
+
+	<!-- inizio LP PG21XX07 -->
+	<wsdl:message name="nodoChiediListaPendentiRPT">
+		<wsdl:part name="bodyrichiesta" element="oper:nodoChiediListaPendentiRPT" />
+		<wsdl:part name="cutecute" element="operhead:parametroCuteCute" />
+	</wsdl:message>
+	<wsdl:message name="nodoChiediListaPendentiRPTResponse">
+		<wsdl:part name="bodyrisposta" element="oper:nodoChiediListaPendentiRPTRisposta">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="nodoPAChiediInformativaPA">
+		<wsdl:part name="bodyrichiesta" element="oper:nodoPAChiediInformativaPA" />
+		<wsdl:part name="cutecute" element="operhead:parametroCuteCute" />
+	</wsdl:message>
+	<wsdl:message name="nodoPAChiediInformativaPAResponse">
+		<wsdl:part name="bodyrisposta" element="oper:nodoPAChiediInformativaPARisposta">
+		</wsdl:part>
+	</wsdl:message>
+	<!-- fine LP PG21XX07 -->
+
+	<wsdl:portType name="EsedServicesEndpoint">		<wsdl:operation name="nodoInviaRPT">
+			<wsdl:input name="nodoInviaRPT" message="oper:nodoInviaRPT"/>
+			<wsdl:output name="nodoInviaRPTRisposta" message="oper:nodoInviaRPTRisposta"/>
+		</wsdl:operation>
+		
+		<wsdl:operation name="nodoChiediStatoRPT">
+			<wsdl:input name="nodoChiediStatoRPT" message="oper:nodoChiediStatoRPT"/>
+			<wsdl:output name="nodoChiediStatoRPTRisposta" message="oper:nodoChiediStatoRPTRisposta"/>
+		</wsdl:operation>
+		
+		<wsdl:operation name="nodoChiediCopiaRT">
+			<wsdl:input name="nodoChiediCopiaRT" message="oper:nodoChiediCopiaRT"/>
+			<wsdl:output name="nodoChiediCopiaRTRisposta" message="oper:nodoChiediCopiaRTRisposta"/>
+		</wsdl:operation>
+		
+		<wsdl:operation name="nodoInviaRispostaRevoca">
+			<wsdl:input name="nodoInviaRispostaRevoca" message="oper:nodoInviaRispostaRevoca"/>
+			<wsdl:output name="nodoInviaRispostaRevocaRisposta" message="oper:nodoInviaRispostaRevocaRisposta"/>
+		</wsdl:operation>
+
+		<!-- inizio LP PG21XX07 -->
+		<wsdl:operation name="nodoChiediListaPendentiRPT">
+			<wsdl:input name="nodoChiediListaPendentiRPT" message="oper:nodoChiediListaPendentiRPT"/>
+			<wsdl:output name="nodoChiediListaPendentiRPTResponse" message="oper:nodoChiediListaPendentiRPTResponse"/>
+		</wsdl:operation>
+
+		<wsdl:operation name="nodoPAChiediInformativaPA">
+			<wsdl:input name="nodoPAChiediInformativaPA" message="oper:nodoPAChiediInformativaPA"/>
+			<wsdl:output name="nodoPAChiediInformativaPAResponse" message="oper:nodoPAChiediInformativaPAResponse"/>
+		</wsdl:operation>
+		<!-- fine LP PG21XX07 -->
+		
+	</wsdl:portType>
+	
+	<wsdl:binding name="EsedServicesBinding" type="oper:EsedServicesEndpoint">
+		<wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="nodoInviaRPT">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body parts="bodyrichiesta" use="literal" />
+				<wsdlsoap:header message="oper:nodoInviaRPT" part="header" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="nodoChiediStatoRPT">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body parts="bodyrichiesta" use="literal" />
+				<wsdlsoap:header message="oper:nodoChiediStatoRPT" part="cutecute" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="nodoChiediCopiaRT">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body parts="bodyrichiesta" use="literal" />
+				<wsdlsoap:header message="oper:nodoChiediCopiaRT" part="cutecute" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="nodoInviaRispostaRevoca">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body parts="bodyrichiesta" use="literal" />
+				<wsdlsoap:header message="oper:nodoInviaRispostaRevoca" part="cutecute" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<!-- inizio LP PG21XX07 -->
+		<wsdl:operation name="nodoChiediListaPendentiRPT">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body parts="bodyrichiesta" use="literal" />
+				<wsdlsoap:header message="oper:nodoChiediListaPendentiRPT" part="cutecute" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="nodoPAChiediInformativaPA">
+			<wsdlsoap:operation soapAction="" />
+			<wsdl:input>
+				<wsdlsoap:body parts="bodyrichiesta" use="literal" />
+				<wsdlsoap:header message="oper:nodoPAChiediInformativaPA" part="cutecute" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<!-- fine LP PG21XX07 -->
+		
+	</wsdl:binding>
+	
+	<wsdl:service name="EsedFacetService">
+		<wsdl:port name="EsedServicesPort" binding="oper:EsedServicesBinding">
+			<wsdlsoap:address location="http://localhost:9862/EasybridgeService/EsedServicesPort"/>
+		</wsdl:port>
+	</wsdl:service>
+	
+	<xs:annotation>
+		<xs:documentation>
+			WSDL per interfacciare EasybridgeService per i metodi mancanti verso AGID
+		</xs:documentation>
+	</xs:annotation>
+</wsdl:definitions>
