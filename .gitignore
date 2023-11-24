@@ -9,3 +9,4 @@ bin/
 .log
 Logs/
 target/
+.vscode/
