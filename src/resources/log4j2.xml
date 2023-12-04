@@ -8,7 +8,7 @@
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
         <RollingFile name="com-esed-easybridge-ws"
-                	  fileName="../standalone/log/com-esed-easybridge-ws.log"
+                	  fileName="${sys:jboss.server.log.dir}/com-esed-easybridge-ws.log"
                 	  filePattern="%d{yyyy-MM-dd}-com-esed-easybridge-ws.%i.log.gz"
                 	  ignoreExceptions="false" filePermissions="rw-rw-r--">
             <PatternLayout pattern="${LOG_PATTERN}"/>
@@ -20,7 +20,7 @@
             <ThresholdFilter level="INFO"/>
         </RollingFile>
         <RollingFile name="com-esed-easybridge-ws-error"
-                	 fileName="../standalone/log/com-esed-easybridge-ws-error.log"
+                	 fileName="${sys:jboss.server.log.dir}/com-esed-easybridge-ws-error.log"
                 	 filePattern="com-esed-easybridge-ws-error.%i.log"
                      ignoreExceptions="false" filePermissions="rw-rw-r--">
 			<JsonTemplateLayout eventTemplateUri="classpath:ElasticsearchJsonEventLayoutV1.json"/>
